@@ -33,7 +33,7 @@ jobs:
 
             # Build the Application
             - name: Build Application
-              run: npm run build --prod
+              run: CI=false npm run build --prod
 
             # Run the Unit tests
             # - name: Run Unit Tests
