@@ -11,7 +11,7 @@ const AddUser = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("/users/", {
+            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -51,7 +51,7 @@ const AddUser = () => {
 
         console.log(newUser);
 
-        axios.post('/users/add', newUser)
+        axios.post('https://spe-backend-app.azurewebsites.net/users/add', newUser)
         .then(res => {
             console.log(res.data)
             if(res.status === 401){

@@ -14,7 +14,7 @@ const AddActivity = () => {
 
     useEffect(() => {
         const getRoomList = async () => {
-            const response = await axios.get("/rooms");
+            const response = await axios.get("https://spe-backend-app.azurewebsites.net/rooms");
             const roomList = await response.data;
             setRoomList(roomList);
         };
@@ -33,7 +33,7 @@ const AddActivity = () => {
             startDateTime: startDateTime,
             endDateTime: endDateTime
         }
-        axios.post('/activity/add', newActivity)
+        axios.post('https://spe-backend-app.azurewebsites.net/activity/add', newActivity)
             .then(res => console.log(res.data))
             .catch(error => console.log(error)); 
     };

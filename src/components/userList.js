@@ -10,7 +10,7 @@ const UserList = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("/users/", {
+            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -22,7 +22,7 @@ const UserList = () => {
                             alert("Permision denied!")
                         }
                         else {
-                            axios.get("/users/list")
+                            axios.get("https://spe-backend-app.azurewebsites.net/users/list")
                                 .then((res) => {
                                     if(res.status === 201){
                                         console.log(res.data);
@@ -50,7 +50,7 @@ const UserList = () => {
 
     const deleteuser = async (id) => {
         console.log(id);
-        const res2 = await axios.delete(`/users/delete/${id}`);
+        const res2 = await axios.delete(`https://spe-backend-app.azurewebsites.net/users/delete/${id}`);
 
         const deletedata = await res2.data;
         console.log(deletedata);

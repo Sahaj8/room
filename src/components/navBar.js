@@ -12,7 +12,7 @@ export const NavBar = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("/users/", {
+            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {

@@ -12,7 +12,7 @@ const Activity = (activity) => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("/users/", {
+            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -38,7 +38,7 @@ const Activity = (activity) => {
         newActivity.status = "Approved";
         console.log("handle");
         console.log(newActivity);
-        axios.patch(`/activity/update/${newActivity._id}`, newActivity)
+        axios.patch(`https://spe-backend-app.azurewebsites.net/activity/update/${newActivity._id}`, newActivity)
             .then(res => {
                 console.log(res.data)
                 if(res.status === 401){
@@ -55,7 +55,7 @@ const Activity = (activity) => {
     const handleDecline = () => {
         const newActivity = {...activity};
         newActivity.status = "Declined";
-        axios.patch(`/activity/update/${newActivity._id}`, newActivity)
+        axios.patch(`https://spe-backend-app.azurewebsites.net/activity/update/${newActivity._id}`, newActivity)
             .then(res => {
                 console.log(res.data)
                 if(res.status === 401){
@@ -70,7 +70,7 @@ const Activity = (activity) => {
     }
 
     const handleDelete = () => {
-        axios.delete(`/activity/delete/${activity._id}`)
+        axios.delete(`https://spe-backend-app.azurewebsites.net/activity/delete/${activity._id}`)
             .then(res => {
                 console.log(res.data)
                 if(res.status === 401){
