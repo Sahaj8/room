@@ -11,7 +11,7 @@ const LoginUser = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://afb9-103-156-19-229.in.ngrok.io/users/", {
+            axios.get("/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -47,7 +47,7 @@ const LoginUser = () => {
     
             console.log(newUser);
     
-            const res = await axios.post('https://afb9-103-156-19-229.in.ngrok.io/users/login', newUser);
+            const res = await axios.post('/users/login', newUser);
             localStorage.setItem("token", res.data.token); 
             console.log(res.data)
             window.location.href="/";

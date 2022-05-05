@@ -14,7 +14,7 @@ const AddActivity = () => {
 
     useEffect(() => {
         const getRoomList = async () => {
-            const response = await axios.get("https://afb9-103-156-19-229.in.ngrok.io/rooms");
+            const response = await axios.get("/rooms");
             const roomList = await response.data;
             setRoomList(roomList);
         };
@@ -33,7 +33,7 @@ const AddActivity = () => {
             startDateTime: startDateTime,
             endDateTime: endDateTime
         }
-        axios.post('https://afb9-103-156-19-229.in.ngrok.io/activity/add', newActivity)
+        axios.post('/activity/add', newActivity)
             .then(res => console.log(res.data))
             .catch(error => console.log(error)); 
     };

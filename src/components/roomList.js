@@ -10,7 +10,7 @@ const RoomList = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://afb9-103-156-19-229.in.ngrok.io/users/", {
+            axios.get("/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -22,7 +22,7 @@ const RoomList = () => {
                             alert("Permision denied!")
                         }
                         else {
-                            axios.get("https://afb9-103-156-19-229.in.ngrok.io/rooms/list")
+                            axios.get("/rooms/list")
                                 .then((res) => {
                                     if(res.status === 201){
                                         console.log(res.data);
@@ -50,7 +50,7 @@ const RoomList = () => {
 
     const deleteroom = async (id) => {
         console.log(id);
-        const res2 = await axios.delete(`https://afb9-103-156-19-229.in.ngrok.io/rooms/delete/${id}`);
+        const res2 = await axios.delete(`/rooms/delete/${id}`);
 
         const deletedata = await res2.data;
         console.log(deletedata);

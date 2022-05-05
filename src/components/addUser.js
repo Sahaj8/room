@@ -11,7 +11,7 @@ const AddUser = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://afb9-103-156-19-229.in.ngrok.io/users/", {
+            axios.get("/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -51,7 +51,7 @@ const AddUser = () => {
 
         console.log(newUser);
 
-        axios.post('https://afb9-103-156-19-229.in.ngrok.io/users/add', newUser)
+        axios.post('/users/add', newUser)
         .then(res => {
             console.log(res.data)
             if(res.status === 401){

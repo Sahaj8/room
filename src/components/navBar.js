@@ -12,7 +12,7 @@ export const NavBar = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://afb9-103-156-19-229.in.ngrok.io/users/", {
+            axios.get("/users/", {
                 headers: { Authorization: token },
               })
                 .then((res) => {
