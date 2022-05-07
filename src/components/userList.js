@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const UserList = () => {
     const [userList, setUserList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect( ()=>{
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
+            axios.get(`${url}/users/`, {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -18,11 +21,11 @@ const UserList = () => {
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
-                            window.location.href="/";
+                            navigate("/");
                             alert("Permision denied!")
                         }
                         else {
-                            axios.get("https://spe-backend-app.azurewebsites.net/users/list")
+                            axios.get(`${url}/users/list`)
                                 .then((res) => {
                                     if(res.status === 201){
                                         console.log(res.data);
@@ -36,7 +39,7 @@ const UserList = () => {
                     else
                     {   
                         alert("Token invalid!");
-                        window.location.href="/login";
+                        navigate("/login")
                     }
                 })
                 .catch((err) => {
@@ -45,12 +48,12 @@ const UserList = () => {
                     alert("Internal Server Error");
                 })
         }
-        else  window.location.href="/login";
+        else  navigate("/login");
     },[])
 
     const deleteuser = async (id) => {
         console.log(id);
-        const res2 = await axios.delete(`https://spe-backend-app.azurewebsites.net/users/delete/${id}`);
+        const res2 = await axios.delete(`${url}/users/delete/${id}`);
 
         const deletedata = await res2.data;
         console.log(deletedata);

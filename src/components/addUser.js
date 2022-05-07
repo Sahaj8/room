@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const AddUser = () => {
     const [name, setName] = useState("");
     const [mail, setMail] = useState("");
     const [desc, setDesc] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect( ()=>{
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
+            axios.get(`${url}/users/`, {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -19,7 +23,7 @@ const AddUser = () => {
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
-                            window.location.href="/";
+                            navigate("/");
                             alert("Permision denied!")
                         }
                         else setLoading(true);
@@ -27,7 +31,7 @@ const AddUser = () => {
                     else
                     {   
                         alert("Token invalid!");
-                        window.location.href="/login";
+                        navigate("/login");
                     }
                 })
                 .catch((err) => {
@@ -36,7 +40,7 @@ const AddUser = () => {
                     alert("Internal Server Error");
                 })
         }
-        else  window.location.href="/login";
+        else  navigate("/login");
     },[])
 
     const handleSubmit = async (e) => {
@@ -51,13 +55,13 @@ const AddUser = () => {
 
         console.log(newUser);
 
-        axios.post('https://spe-backend-app.azurewebsites.net/users/add', newUser)
+        axios.post(`${url}/users/add`, newUser)
         .then(res => {
             console.log(res.data)
             if(res.status === 401){
                 alert(res.data);
             }
-            else window.location.href="/user/list"
+            else navigate("/user/list")
         })
         .catch(err => {
             console.log(err);

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios";
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const EditUser = () => {
     const { id } = useParams("");
@@ -15,6 +17,7 @@ const EditUser = () => {
     //     admin:false
     // });
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     // const setdata = async (data) => {
     //     edituser({...user, name:data.username});
@@ -29,7 +32,7 @@ const EditUser = () => {
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
+            axios.get(`${url}/users/`, {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -37,11 +40,11 @@ const EditUser = () => {
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
-                            window.location.href="/";
+                            navigate("/");
                             alert("Permision denied!")
                         }
                         else{
-                            axios.get(`https://spe-backend-app.azurewebsites.net/users/edit/${id}`)
+                            axios.get(`${url}/users/edit/${id}`)
                                 .then((res) => {
                                     editUser(res.data);
                                     // setdata(res.data);
@@ -63,7 +66,7 @@ const EditUser = () => {
                     else
                     {   
                         alert("Token invalid!");
-                        window.location.href="/login";
+                        navigate("/login");
                     }
                 })
                 .catch((err) => {
@@ -72,7 +75,7 @@ const EditUser = () => {
                     alert("Internal Server Error");
                 })
         }
-        else  window.location.href="/login";
+        else  navigate("/login");
     },[])
 
     const handleSubmit = async (e) => {
@@ -88,13 +91,13 @@ const EditUser = () => {
 
         console.log(newUser);
 
-        axios.patch(`https://spe-backend-app.azurewebsites.net/users/update/${id}`, newUser)
+        axios.patch(`${url}/users/update/${id}`, newUser)
             .then(res => {
                 console.log(res.data)
                 if(res.status === 401){
                     alert(res.data);
                 }
-                else window.location.href="/user/list"
+                else navigate("/user/list");
             })
             .catch(err => {
                 console.log(err);

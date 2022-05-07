@@ -1,18 +1,21 @@
 // import { userInfo } from 'os';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 export const NavBar = () => {
     const [isAuthenticated, setisAuthenticated] = useState(false);
     const [isAdmin, setisAdmin] = useState(false);
-    const [name, setName] = useState("");
+    // const [name, setName] = useState("");
+    const navigate = useNavigate();
     
     useEffect( ()=>{
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
+            axios.get(`${url}/users/`, {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -37,7 +40,7 @@ export const NavBar = () => {
         e.preventDefault();
         try {
             localStorage.clear();
-            window.location.href="/"
+            navigate("/");
         } catch (error) {
             console.log(error.response.data.msg);
         }

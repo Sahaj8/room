@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const AddRoom = () => {
     const [number, setNumber] = useState("");
     // const [size, setSize] = useState(0);
     // const [desc, setDesc] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect( ()=>{
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
+            axios.get(`${url}/users/`, {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -19,7 +23,7 @@ const AddRoom = () => {
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
-                            window.location.href="/";
+                            navigate("/");
                             alert("Permision denied!")
                         }
                         else setLoading(true);
@@ -27,7 +31,7 @@ const AddRoom = () => {
                     else
                     {   
                         alert("Token invalid!");
-                        window.location.href="/login";
+                        navigate("/login");
                     }
                 })
                 .catch((err) => {
@@ -36,7 +40,7 @@ const AddRoom = () => {
                     alert("Internal Server Error");
                 })
         }
-        else  window.location.href="/login";
+        else  navigate("/login");
     },[])
 
     const handleSubmit = async (e) => {
@@ -49,13 +53,13 @@ const AddRoom = () => {
 
         console.log(newRoom);
 
-        axios.post('https://spe-backend-app.azurewebsites.net/rooms/add', newRoom)
+        axios.post(`${url}/rooms/add`, newRoom)
         .then(res => {
             console.log("inside add")
             if(res.status === 401){
                 alert(res.data);
             }
-            else window.location.href="/room/list"
+            else navigate("/room/list");
         })
         .catch(err => {
             console.log(err);

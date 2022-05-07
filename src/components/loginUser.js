@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const LoginUser = () => {
     const [name, setName] = useState("");
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     
     useEffect( () =>{
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
+            axios.get(`${url}/users/`, {
                 headers: { Authorization: token },
               })
                 .then((res) => {
                     console.log(res.data.user);
                     if(res.status===201)
                     {
-                        window.location.href="/";
+                        navigate("/");
                         alert("Already Logged In");
                     }
                     else
@@ -47,10 +51,10 @@ const LoginUser = () => {
     
             console.log(newUser);
     
-            const res = await axios.post('https://spe-backend-app.azurewebsites.net/users/login', newUser);
+            const res = await axios.post(`${url}/users/login`, newUser);
             localStorage.setItem("token", res.data.token); 
             console.log(res.data)
-            window.location.href="/";
+            navigate("/");
         } catch (error) {
             console.log(error.response.data.msg);
         }

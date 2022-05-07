@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios";
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const EditRoom = () => {
     const { id } = useParams("");
     const [room, editRoom] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect( ()=>{
         const token = localStorage.getItem('token');
         if(token)
         {
-            axios.get("https://spe-backend-app.azurewebsites.net/users/", {
+            axios.get(`${url}/users/`, {
                 headers: { Authorization: token },
               })
                 .then((res) => {
@@ -19,11 +22,11 @@ const EditRoom = () => {
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
-                            window.location.href="/";
+                            navigate("/");
                             alert("Permision denied!")
                         }
                         else{
-                            axios.get(`https://spe-backend-app.azurewebsites.net/rooms/edit/${id}`)
+                            axios.get(`${url}/rooms/edit/${id}`)
                                 .then((res) => {
                                     editRoom(res.data);
                                     console.log(room);
@@ -39,7 +42,7 @@ const EditRoom = () => {
                     else
                     {   
                         alert("Token invalid!");
-                        window.location.href="/login";
+                        navigate("/login");
                     }
                 })
                 .catch((err) => {
@@ -48,7 +51,7 @@ const EditRoom = () => {
                     alert("Internal Server Error");
                 })
         }
-        else  window.location.href="/login";
+        else  navigate("/login");
     },[])
 
     const handleSubmit = async (e) => {
@@ -57,13 +60,13 @@ const EditRoom = () => {
 
         console.log(newRoom);
 
-        axios.patch(`https://spe-backend-app.azurewebsites.net/rooms/update/${id}`, newRoom)
+        axios.patch(`${url}/rooms/update/${id}`, newRoom)
         .then(res => {
             console.log(res.data)
             if(res.status === 401){
                 alert(res.data);
             }
-            else window.location.href="/room/list"
+            else navigate("/room/list");
         })
         .catch(err => {
             console.log(err);

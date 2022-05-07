@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DateTimePicker from 'react-datetime-picker';
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const AddActivity = () => {
     const [activityData, setActivityData] = useState({
@@ -14,7 +16,7 @@ const AddActivity = () => {
 
     useEffect(() => {
         const getRoomList = async () => {
-            const response = await axios.get("https://spe-backend-app.azurewebsites.net/rooms");
+            const response = await axios.get(`${url}/rooms`);
             const roomList = await response.data;
             setRoomList(roomList);
         };
@@ -33,7 +35,7 @@ const AddActivity = () => {
             startDateTime: startDateTime,
             endDateTime: endDateTime
         }
-        axios.post('https://spe-backend-app.azurewebsites.net/activity/add', newActivity)
+        axios.post(`${url}/activity/add`, newActivity)
             .then(res => console.log(res.data))
             .catch(error => console.log(error)); 
     };

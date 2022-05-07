@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Activity from "./activity";
 import { Button, Card, Container } from 'react-bootstrap';
+import { getApiUrl } from "../config";
+const url = getApiUrl();
 
 const ActivityList = () => {
     const [activityList, setActivityList] = useState( [] );
@@ -15,13 +17,13 @@ const ActivityList = () => {
 
     useEffect(() => {
         const getActivityList = async () => {
-            const response = await axios.get("https://spe-backend-app.azurewebsites.net/activity");
+            const response = await axios.get(`${url}/activity`);
             const activityData = await response.data;
             setActivityList(activityData);
             console.log(activityData);
             const token = localStorage.getItem('token');
             if(token) {
-                const userDataresponse = await axios.get("https://spe-backend-app.azurewebsites.net/users/", {headers: { Authorization: token },})
+                const userDataresponse = await axios.get(`${url}/users/`, {headers: { Authorization: token },})
                 const userData = await userDataresponse.data.user;
                 if(userData) {
                     setisAuthenticated(true);
