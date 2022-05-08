@@ -57,7 +57,7 @@ jobs:
 #                   context: ./
 #                   file: ./Dockerfile
 #                   push: true
-#                   tags: goliakshay357/canvasboard:latest
+#                   tags: sahajv/spe_frontend_prod:latest
 
 #             - name: Image Digest
 #               run: echo ${{ steps.docker_build.outputs.digest }}
@@ -86,7 +86,7 @@ jobs:
           - name: Audit URLs using Lighthouse
             uses: treosh/lighthouse-ci-action@v7
             with:
-              urls: https://learn.iiitb.net/login/index.php
+              urls: https://room-allocation-ci-cd.netlify.app/
               # budgetPath: ./budget.json # test performance budgets
               uploadArtifacts: true # save results as an action artifacts
               temporaryPublicStorage: true # upload lighthouse report to the temporary storage
