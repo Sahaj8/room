@@ -1,18 +1,9 @@
-// import {render, screen, cleanup} from "@testing-library/react";
-// import ActivityList from "../activityList";
 import '@testing-library/jest-dom'
-
-// test("Testing activityList component", () => {
-//     render (<ActivityList />)
-//     const activityList = screen.getByTestId('activity-list-testid');
-//     expect(activityList).toBeInTheDocument();
-// });
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { act, isDOMComponent } from 'react-dom/test-utils';
 import ActivityList from "../activityList";
-import {render, screen, cleanup} from "@testing-library/react";
+import {BrowserRouter as Router} from 'react-router-dom';
 let container;
 
 beforeEach(() => {
@@ -27,11 +18,18 @@ afterEach(() => {
 
 it("Render Activity List Component", () => {
     act(() => {
-      ReactDOM.createRoot(container).render(<ActivityList />);
+      ReactDOM.createRoot(container).render(<Router><ActivityList /></Router>);
     })
-    console.log(container.outerHTML);
+    // console.log(container.outerHTML);
     const activityList = document.getElementById('activity-list-testid');
     isDOMComponent(activityList);
-    expect(document.querySelector(".form-label").innerHTML).toBe("Filter Requests");
-    expect(document.querySelector(".form-control").length).toBe(4);
+    
+})
+
+it("Render Activity List Component and test Filter Options", () => {
+  act(() => {
+    ReactDOM.createRoot(container).render(<Router><ActivityList /></Router>);
+  })
+  expect(document.querySelector(".form-label").innerHTML).toBe("Filter Requests");
+  expect(document.querySelector(".form-control").length).toBe(4);
 })

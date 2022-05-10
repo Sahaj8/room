@@ -1,6 +1,6 @@
 import React from 'react';
-import { ToggleButton } from 'react-bootstrap';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter as Router} from 'react-router-dom';
 import { act, isDOMComponent } from 'react-dom/test-utils';
 import Activity from "../activity";
 let container;
@@ -17,7 +17,7 @@ afterEach(() => {
 
 it("Render Activity Components", () => {
     act(() => {
-        ReactDOM.createRoot(container).render(<Activity />);
+        ReactDOM.createRoot(container).render(<Router><Activity /></Router>);
     });
     console.log(container.outerHTML);
     const activityComponent = document.querySelector(".card");
@@ -27,7 +27,7 @@ it("Render Activity Components", () => {
 
 it("Check display format of activity", () => {
     act(() => {
-        ReactDOM.createRoot(container).render(<Activity />);
+        ReactDOM.createRoot(container).render(<Router><Activity /></Router>);
     });
     const groupList = document.getElementsByClassName("list-group-item");
     expect(groupList.length).toBe(7);

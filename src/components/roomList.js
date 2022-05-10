@@ -78,7 +78,7 @@ const RoomList = () => {
             <>
             <NavBar/>
             <div className="mt-5">
-                <div className="container">
+                <div data-testid="container" className="container">
                     <div className="add_btn mt-2 mb-2">
                         <Link to="/room/add" className="btn btn-primary">Add Room</Link>
                     </div>

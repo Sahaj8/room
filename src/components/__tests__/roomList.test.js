@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { act, isDOMComponent } from 'react-dom/test-utils';
+import { BrowserRouter as Router } from 'react-router-dom';
 let container;
 
 import RoomList from "../roomList";
@@ -15,12 +16,10 @@ afterEach(() => {
     container = null;
 });
 
-it("Render Activity List Component", () => {
+
+it("Render Room List Component", () => {
     act(() => {
-      ReactDOM.createRoot(container).render(<RoomList />);
+      ReactDOM.createRoot(container).render(<Router><RoomList /></Router>);
     })
-    console.log(container.outerHTML);
-    const editRoomComponent = document.querySelector(".container");
-    console.log(editRoomComponent)
-    
+    isDOMComponent(container.outerHTML);
 })
