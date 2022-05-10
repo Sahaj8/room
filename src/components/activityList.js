@@ -21,7 +21,7 @@ const ActivityList = () => {
             const response = await axios.get(`${url}/activity`);
             const activityData = await response.data;
             setActivityList(activityData);
-            console.log(activityData);
+            // console.log(activityData);
             const token = localStorage.getItem('token');
             if(token) {
                 const userDataresponse = await axios.get(`${url}/users/`, {headers: { Authorization: token },})
@@ -51,7 +51,7 @@ const ActivityList = () => {
         };
         getActivityList();
     }, []);
-    console.log(activityList, isAuthenticated, isAdmin);
+    // console.log(activityList, isAuthenticated, isAdmin);
     return (
         <>
         <NavBar/>       
@@ -71,7 +71,7 @@ const ActivityList = () => {
                     {
                         currentFilter == "My Requests" ?
                         activityList.filter(activity => (activity.applicant == name)).map(function(object, index) {
-                            console.log("here", object.status, currentFilter)
+                            // console.log("here", object.status, currentFilter)
                             return <Activity {...object} key={index} />
                         })
                         :
@@ -82,7 +82,7 @@ const ActivityList = () => {
                             })
                             :
                             activityList.filter(activity => (activity.status == currentFilter)).map(function(object, index) {
-                                console.log("here", object.status, currentFilter)
+                                // console.log("here", object.status, currentFilter)
                                 return <Activity {...object} key={index} />
                             })
                     }
