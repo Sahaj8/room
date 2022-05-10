@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import { getApiUrl } from "../config";
+import { NavBar } from "./navBar";
 const url = getApiUrl();
 
 const RoomList = () => {
@@ -71,9 +72,11 @@ const RoomList = () => {
 
     return (
         <>
+
         {
             loading?
             <>
+            <NavBar/>
             <div className="mt-5">
                 <div className="container">
                     <div className="add_btn mt-2 mb-2">

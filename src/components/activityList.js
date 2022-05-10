@@ -3,6 +3,7 @@ import axios from "axios";
 import Activity from "./activity";
 import { Button, Card, Container } from 'react-bootstrap';
 import { getApiUrl } from "../config";
+import { NavBar } from "./navBar";
 const url = getApiUrl();
 
 const ActivityList = () => {
@@ -52,7 +53,8 @@ const ActivityList = () => {
     }, []);
     console.log(activityList, isAuthenticated, isAdmin);
     return (
-        <>       
+        <>
+        <NavBar/>       
         <Container>
             <div className="mb-3">
                     <label htmlFor="Filter Requests" className="form-label">Filter Requests</label>

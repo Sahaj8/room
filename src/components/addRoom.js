@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { getApiUrl } from "../config";
+import { NavBar } from "./navBar";
+
 const url = getApiUrl();
 
 const AddRoom = () => {
@@ -69,6 +71,8 @@ const AddRoom = () => {
     };
 
     return (
+        <>
+        <NavBar/>
         <div className="container">
             {
                 loading?
@@ -104,6 +108,7 @@ const AddRoom = () => {
                 <></>
             }
         </div>
+        </>
     );
 }
 

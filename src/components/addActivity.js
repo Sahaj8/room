@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DateTimePicker from 'react-datetime-picker';
 import { getApiUrl } from "../config";
+import { NavBar } from "./navBar";
 const url = getApiUrl();
 
 const AddActivity = () => {
@@ -40,6 +41,8 @@ const AddActivity = () => {
             .catch(error => console.log(error)); 
     };
     return (
+        <>
+        <NavBar />
         <div className="container">
             <h2>Request Room</h2>
             <form onSubmit={handleSubmit}>
@@ -77,6 +80,7 @@ const AddActivity = () => {
                 <button type="submit" className="btn btn-primary">Add</button>
             </form>
         </div>
+        </>
     );
 }
 

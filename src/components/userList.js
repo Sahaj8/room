@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import { getApiUrl } from "../config";
+import { NavBar } from "./navBar";
 const url = getApiUrl();
 
 const UserList = () => {
@@ -27,7 +28,7 @@ const UserList = () => {
                         else {
                             axios.get(`${url}/users/list`)
                                 .then((res) => {
-                                    if(res.status === 201){
+                                    if(res.status === 200){
                                         console.log(res.data);
                                         setUserList(res.data);
                                         setLoading(true);
@@ -74,6 +75,7 @@ const UserList = () => {
         {
             loading?
             <>
+            <NavBar/>
             <div className="mt-5">
                 <div className="container">
                     <div className="add_btn mt-2 mb-2">

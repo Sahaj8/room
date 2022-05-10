@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { getApiUrl } from "../config";
+import { NavBar } from "./navBar";
+import { Nav } from "react-bootstrap";
 const url = getApiUrl();
 
 const EditUser = () => {
@@ -107,6 +109,8 @@ const EditUser = () => {
     };
 
     return (
+        <>
+        <NavBar />
         <div className="container">
             {
                 loading?
@@ -152,6 +156,7 @@ const EditUser = () => {
                 <></>
             }
         </div>
+        </>
     );
 }
 
