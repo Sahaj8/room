@@ -21,18 +21,18 @@
 
 
 
-# FROM node:17 as node
+FROM node:17 as node
 # # Setting the remote DIR to /app
-# WORKDIR /app
+WORKDIR /app
 # # COPY the current folder
-# COPY . .
+COPY . .
 # RUN rm -r build
 # RUN rm -r node_modules
 # # run npm i (install all the dependencies)
-# RUN npm install
+RUN npm install
 # # this will generate dist
-# RUN npm run build --prod
+RUN npm run build --prod
 
 # stage 2 (Running the app (i.e for production))
 FROM nginx:alpine
-COPY ./build /usr/share/nginx/html
+COPY --from=node /app/dist/canvasboard /usr/share/nginx/html
