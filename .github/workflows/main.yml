@@ -36,8 +36,8 @@ jobs:
               # run: npm run test
 
             # Fix Vulnerabilities
-            - name: Fix Vulnerabilities
-              run: npm audit fix --force
+            # - name: Fix Vulnerabilities
+            #   run: npm audit fix --force
 
             # Build the Application
             - name: Build Application
