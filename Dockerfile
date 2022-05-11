@@ -35,4 +35,4 @@ RUN npm run build --prod
 
 # stage 2 (Running the app (i.e for production))
 FROM nginx:alpine
-COPY --from=node /app/dist/canvasboard /usr/share/nginx/html
+COPY --from=node /app/build /usr/share/nginx/html
