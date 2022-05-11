@@ -36,7 +36,7 @@ jobs:
               run: CI=false npm run build --prod
 
             # Run the Unit tests
-            - name: Run Unit Tests
+            # - name: Run Unit Tests
               # run: npm run test
 
             # Fix Vulnerabilities
