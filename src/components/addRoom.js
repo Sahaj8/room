@@ -21,7 +21,6 @@ const AddRoom = () => {
                 headers: { Authorization: token },
               })
                 .then((res) => {
-                    console.log(res.data.user);
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
@@ -38,8 +37,6 @@ const AddRoom = () => {
                 })
                 .catch((err) => {
                     console.log(err);
-                    // console.log(res.status);
-                    alert("Internal Server Error");
                 })
         }
         else  navigate("/login");
@@ -52,12 +49,8 @@ const AddRoom = () => {
             // size: size,
             // description: desc,
         };
-
-        console.log(newRoom);
-
         axios.post(`${url}/rooms/add`, newRoom)
         .then(res => {
-            console.log("inside add")
             if(res.status === 401){
                 alert(res.data);
             }
@@ -65,7 +58,6 @@ const AddRoom = () => {
         })
         .catch(err => {
             console.log(err);
-            alert("Room already exist");
         });
         
     };
@@ -86,21 +78,6 @@ const AddRoom = () => {
                             onChange={(e) => setNumber(e.target.value)}
                         />
                     </div>
-                    {/* <div className="mb-3">
-                        <label className="form-label" htmlFor="inputSize">Email</label>
-                        <input 
-                            // type="email" 
-                            className="form-control" id="inputSize" placeholder="100"
-                            onChange={(e) => setSize(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="inputDescription" className="form-label">Description</label>
-                        <textarea 
-                            className="form-control" id="inputDescription" placeholder="Description"
-                            onChange={(e) => setDesc(e.target.value)}
-                        />
-                    </div> */}
                     <button type="submit" className="btn btn-primary">Add</button>
                 </form>
                 </>

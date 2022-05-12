@@ -16,8 +16,7 @@ import EditRoom from "./components/editRoom";
 const App = () => {
     return (
       <Router>
-        <div className="container">
-            <h1> Room Allocation App</h1>
+        <div>
             <Routes>
                 <Route path="/" element={<><ActivityList/></> } exact />
                 <Route path="/addActivity" element={<><AddActivity/></>} exact />

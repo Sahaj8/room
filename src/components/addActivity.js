@@ -26,7 +26,6 @@ const AddActivity = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(activityData);
         const newActivity = {
             applicant: activityData.applicant,
             activity: activityData.activity,
@@ -37,8 +36,8 @@ const AddActivity = () => {
             endDateTime: endDateTime
         }
         axios.post(`${url}/activity/add`, newActivity)
-            .then(res => console.log(res.data))
-            .catch(error => console.log(error)); 
+            .then(res => {})
+            .catch(error => {console.log(error)}); 
     };
     return (
         <>

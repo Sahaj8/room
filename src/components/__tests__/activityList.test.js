@@ -20,7 +20,6 @@ it("Render Activity List Component", () => {
     act(() => {
       ReactDOM.createRoot(container).render(<Router><ActivityList /></Router>);
     })
-    // console.log(container.outerHTML);
     const activityList = document.getElementById('activity-list-testid');
     isDOMComponent(activityList);
     

@@ -28,7 +28,6 @@ const Activity = (activity) => {
                 })
                 .catch((err) => {
                     console.log(err);
-                    // console.log(res.status);
                     alert("Internal Server Error");
                 })
         }
@@ -40,19 +39,18 @@ const Activity = (activity) => {
     const handleApprove = () => {
         const newActivity = {...activity};
         newActivity.status = "Approved";
-        console.log("handle");
-        console.log(newActivity);
         axios.patch(`${url}/activity/update/${newActivity._id}`, newActivity)
             .then(res => {
-                console.log(res.data)
                 if(res.status === 401){
                     alert(res.data);
                 }
-                else navigate("/");
+                else {
+                    navigate("/");
+                    window.location.reload();
+                }
             })
             .catch(err => {
-                console.log(err);
-                alert("Activity error");
+                alert("Error while handle approve: "+err.message);
             });
     }
 
@@ -61,35 +59,31 @@ const Activity = (activity) => {
         newActivity.status = "Declined";
         axios.patch(`${url}/activity/update/${newActivity._id}`, newActivity)
             .then(res => {
-                console.log(res.data)
                 if(res.status === 401){
                     alert(res.data);
                 }
-                else navigate("/");
+                else {
+                    navigate("/");
+                    window.location.reload();
+                }
             })
             .catch(err => {
-                console.log(err);
-                alert("Activity error");
+                alert("Error while handle decline: "+err.message);
             });
     }
 
     const handleDelete = () => {
         axios.delete(`${url}/activity/delete/${activity._id}`)
             .then(res => {
-                console.log(res.data)
                 if(res.status === 401){
                     alert(res.data);
                 }
                 else navigate("/");
             })
             .catch(err => {
-                console.log(err);
-                alert("Activity error");
+                alert("Error while deleting activity: "+err.message);
             });
     }
-
-    
-    console.log(activity);
     return (
         <>     
             <Card style={{ width: '100%', display:'flex', flexDirection: 'row', backgroundColor: "rgb(247,247,247)"}}>

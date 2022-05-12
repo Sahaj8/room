@@ -18,7 +18,6 @@ const RoomList = () => {
                 headers: { Authorization: token },
               })
                 .then((res) => {
-                    console.log(res.data.user);
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
@@ -29,7 +28,6 @@ const RoomList = () => {
                             axios.get(`${url}/rooms/list`)
                                 .then((res) => {
                                     if(res.status === 201){
-                                        console.log(res.data);
                                         setRoomList(res.data);
                                         setLoading(true);
                                     }
@@ -45,26 +43,19 @@ const RoomList = () => {
                 })
                 .catch((err) => {
                     console.log(err);
-                    // console.log(res.status);
-                    alert("Internal Server Error");
                 })
         }
         else  navigate("/login");
     },[])
 
     const deleteroom = async (id) => {
-        console.log(id);
         const res2 = await axios.delete(`${url}/rooms/delete/${id}`);
 
         const deletedata = await res2.data;
-        console.log(deletedata);
 
         if (res2.status === 401 || !deletedata) {
             console.log("error");
         } else {
-            console.log("user deleted");
-            // setDLTdata(deletedata)
-            // getdata();
             setRoomList(roomList.filter(rl => rl._id !== id))
         }
 
@@ -88,9 +79,6 @@ const RoomList = () => {
                             <tr className="table-dark">
                                 <th scope="col">id</th>
                                 <th scope="col">Room</th>
-                                {/* <th scope="col">email</th> */}
-                                {/* <th scope="col">Description</th> */}
-                                {/* <th scope="col">isAdmin</th> */}
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -100,16 +88,11 @@ const RoomList = () => {
                                 roomList.map((element, id) => {
                                     return (
                                         <>
-                                            <tr>
+                                            <tr key={id}>
                                                 <th scope="row">{id + 1}</th>
                                                 <td>{element.roomNumber}</td>
-                                                {/* <td>{element.usermail}</td> */}
-                                                {/* <td>{element.description}</td> */}
-                                                {/* <td>{element.isAdmin}</td> */}
                                                 <td className="d-flex justify-content-between">
-                                                    {/* <NavLink to={`view/${element._id}`}> <button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink> */}
                                                     <Link to={`/room/edit/${element._id}`}>  <button className="btn btn-primary">Edit</button></Link>
-                                                    {/* <button className="btn btn-primary">Edit</button> */}
                                                     <button className="btn btn-danger" onClick={() => deleteroom(element._id)}>Delete</button>
                                                 </td>
                                             </tr>

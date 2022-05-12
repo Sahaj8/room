@@ -47,6 +47,7 @@ export const NavBar = () => {
         try {
             localStorage.clear();
             navigate("/");
+            window.location.reload();
         } catch (error) {
             console.log(error.response.data.msg);
         }

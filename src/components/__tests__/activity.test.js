@@ -19,7 +19,6 @@ it("Render Activity Components", () => {
     act(() => {
         ReactDOM.createRoot(container).render(<Router><Activity /></Router>);
     });
-    console.log(container.outerHTML);
     const activityComponent = document.querySelector(".card");
     isDOMComponent(activityComponent);
     

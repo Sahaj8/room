@@ -9,26 +9,8 @@ const url = getApiUrl();
 const EditUser = () => {
     const { id } = useParams("");
     const [user, editUser] = useState([]);
-    // const [mail, setMail] = useState("");
-    // const [desc, setDesc] = useState("");
-    // const [user, edituser] = useState({
-    //     name:"",
-    //     mail:"",
-    //     pass:"",
-    //     desc:"",
-    //     admin:false
-    // });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
-    // const setdata = async (data) => {
-    //     edituser({...user, name:data.username});
-    //     edituser({...user, mail:data.usermail});
-    //     edituser({...user, pass:data.password});
-    //     edituser({...user, desc:data.description});
-    //     edituser({...user, admin:data.isAdmin});
-    //     console.log(data.username);
-    // }
 
     useEffect( ()=>{
         const token = localStorage.getItem('token');
@@ -38,7 +20,6 @@ const EditUser = () => {
                 headers: { Authorization: token },
               })
                 .then((res) => {
-                    console.log(res.data.user);
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
@@ -49,18 +30,9 @@ const EditUser = () => {
                             axios.get(`${url}/users/edit/${id}`)
                                 .then((res) => {
                                     editUser(res.data);
-                                    // setdata(res.data);
-                                    // edituser({...user, name:res.data.username});
-                                    // edituser({...user, mail:res.data.usermail});
-                                    // edituser({...user, pass:res.data.password});
-                                    // edituser({...user, desc:res.data.description});
-                                    // edituser({...user, admin:res.data.isAdmin});
-                                    console.log(user);
                                     setLoading(true);
                                 })
                                 .catch((err) => {
-                                    console.log(err);
-                                    // console.log(res.status);
                                     alert("Internal Server Error");
                                 })
                         }
@@ -73,8 +45,6 @@ const EditUser = () => {
                 })
                 .catch((err) => {
                     console.log(err);
-                    // console.log(res.status);
-                    alert("Internal Server Error");
                 })
         }
         else  navigate("/login");
@@ -82,17 +52,7 @@ const EditUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // const newUser = {
-        //     username: user.name,
-        //     usermail: user.mail,
-        //     password: user.pass,
-        //     description: user.desc,
-        //     isAdmin: user.admin
-        // };
         const newUser = user;
-
-        console.log(newUser);
-
         axios.patch(`${url}/users/update/${id}`, newUser)
             .then(res => {
                 console.log(res.data)
@@ -107,7 +67,6 @@ const EditUser = () => {
             });
         
     };
-
     return (
         <>
         <NavBar />

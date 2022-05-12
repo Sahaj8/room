@@ -21,14 +21,12 @@ it("Render Login Component", () => {
       ReactDOM.createRoot(container).render(<Router><LoginUser /></Router>);
     })
     isDOMComponent(container.outerHTML);
-    // console.log(container.outerHTML);
 })
 
 it("Render Login Component and check NavBar", () => {
     act(() => {
       ReactDOM.createRoot(container).render(<Router><LoginUser /></Router>);
     })
-    // console.log(container.outerHTML);
     const groupList = document.getElementsByClassName("navbar-item");
     expect(groupList.length).toBe(2); // Corresponds to {Home, Login} in NavBar
     const groupListItems = document.getElementsByClassName("nav-link");
@@ -40,7 +38,6 @@ it("Render Login Component and check Login Form", () => {
     act(() => {
       ReactDOM.createRoot(container).render(<Router><LoginUser /></Router>);
     })
-    // console.log(container.outerHTML);
     const groupList = document.querySelectorAll("label");
     expect(groupList.length).toBe(3);
     expect(groupList[0].innerHTML).toBe("Username");

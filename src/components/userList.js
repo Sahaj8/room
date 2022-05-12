@@ -18,7 +18,6 @@ const UserList = () => {
                 headers: { Authorization: token },
               })
                 .then((res) => {
-                    console.log(res.data.user);
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
@@ -29,7 +28,6 @@ const UserList = () => {
                             axios.get(`${url}/users/list`)
                                 .then((res) => {
                                     if(res.status === 200){
-                                        console.log(res.data);
                                         setUserList(res.data);
                                         setLoading(true);
                                     }
@@ -45,26 +43,19 @@ const UserList = () => {
                 })
                 .catch((err) => {
                     console.log(err);
-                    // console.log(res.status);
-                    alert("Internal Server Error");
                 })
         }
         else  navigate("/login");
     },[])
 
     const deleteuser = async (id) => {
-        console.log(id);
         const res2 = await axios.delete(`${url}/users/delete/${id}`);
 
         const deletedata = await res2.data;
-        console.log(deletedata);
 
         if (res2.status === 401 || !deletedata) {
             console.log("error");
         } else {
-            console.log("user deleted");
-            // setDLTdata(deletedata)
-            // getdata();
             setUserList(userList.filter(ul => ul._id !== id))
         }
 
@@ -104,11 +95,8 @@ const UserList = () => {
                                                 <td>{element.username}</td>
                                                 <td>{element.usermail}</td>
                                                 <td>{element.description}</td>
-                                                {/* <td>{element.isAdmin}</td> */}
                                                 <td className="d-flex justify-content-between">
-                                                    {/* <NavLink to={`view/${element._id}`}> <button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink> */}
                                                     <Link to={`/user/edit/${element._id}`}>  <button className="btn btn-primary">Edit</button></Link>
-                                                    {/* <button className="btn btn-primary">Edit</button> */}
                                                     <button className="btn btn-danger" onClick={() => deleteuser(element._id)}>Delete</button>
                                                 </td>
                                             </tr>

@@ -64,33 +64,38 @@ const LoginUser = () => {
     return (
         <>
         <NavBar/>
-        <div className="container">
+        <div className="container" style={{paddingTop: "100px", border:"5px solid", backgroundColor: "#CAE6DF"}}>
             {
                 loading?
                 <>
-                <h2>Login User</h2>
+                <h2 style={{textAlign: "center"}}>Login</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="inputUserName" className="form-label">Username</label>
+                    <div className="form-group row">
+                        <label htmlFor="inputUserName" className="col-sm-2 col-form-label">Username</label>
+                        <div class="col-sm-5">
                         <input 
                             type='text' className="form-control" id="inputUserName" placeholder="Username"
                             onChange={(e) => setName(e.target.value)}
-                        />
+                            />
+                        </div>
                     </div>
-                    <div className="mb-3">
-                        <label className="form-label" htmlFor="inputEmail">Email</label>
+                    <div className="form-group row" style={{paddingTop: "10px"}}>
+                        <label htmlFor="inputUserName" className="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-5">
                         <input 
-                            type="email" 
-                            className="form-control" id="inputEmail" placeholder="Email"
+                            type='email' className="form-control" id="inputEmail" placeholder="Email"
                             onChange={(e) => setMail(e.target.value)}
-                        />
+                            />
+                        </div>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="inputPassword" className="form-label">Password</label>
+                    <div className="form-group row" style={{paddingTop: "10px"}}>
+                        <label htmlFor="inputUserName" className="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-5">
                         <input 
                             type='password' className="form-control" id="inputPassword" placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
-                        />
+                            />
+                        </div>
                     </div>
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>

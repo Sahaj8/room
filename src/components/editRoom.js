@@ -20,7 +20,6 @@ const EditRoom = () => {
                 headers: { Authorization: token },
               })
                 .then((res) => {
-                    console.log(res.data.user);
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
@@ -31,12 +30,9 @@ const EditRoom = () => {
                             axios.get(`${url}/rooms/edit/${id}`)
                                 .then((res) => {
                                     editRoom(res.data);
-                                    console.log(room);
                                     setLoading(true);
                                 })
                                 .catch((err) => {
-                                    console.log(err);
-                                    // console.log(res.status);
                                     alert("Internal Server Error");
                                 })
                         }
@@ -48,8 +44,6 @@ const EditRoom = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
-                    // console.log(res.status);
                     alert("Internal Server Error");
                 })
         }
@@ -60,18 +54,15 @@ const EditRoom = () => {
         e.preventDefault();
         const newRoom = room;
 
-        console.log(newRoom);
 
         axios.patch(`${url}/rooms/update/${id}`, newRoom)
         .then(res => {
-            console.log(res.data)
             if(res.status === 401){
                 alert(res.data);
             }
             else navigate("/room/list");
         })
         .catch(err => {
-            console.log(err);
             alert("Room already exist");
         });
         

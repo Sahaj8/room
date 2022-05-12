@@ -21,7 +21,6 @@ const AddUser = () => {
                 headers: { Authorization: token },
               })
                 .then((res) => {
-                    console.log(res.data.user);
                     if(res.status===201)
                     {  
                         if(res.data.user.isAdmin === false){
@@ -37,8 +36,6 @@ const AddUser = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
-                    // console.log(res.status);
                     alert("Internal Server Error");
                 })
         }
@@ -55,18 +52,15 @@ const AddUser = () => {
             isAdmin: false
         };
 
-        console.log(newUser);
 
         axios.post(`${url}/users/add`, newUser)
         .then(res => {
-            console.log(res.data)
             if(res.status === 401){
                 alert(res.data);
             }
             else navigate("/user/list")
         })
         .catch(err => {
-            console.log(err);
             alert("User already exist");
         });
         
