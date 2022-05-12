@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Activity from "./activity";
-import { Button, Card, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { getApiUrl } from "../config";
 import { NavBar } from "./navBar";
 const url = getApiUrl();
 
 const ActivityList = () => {
     const [activityList, setActivityList] = useState( [] );
-    const [filterOption, setFilterOption] = useState( ["Pending", "Approved", "My Requests", "All"] );
+    const [filterOption] = useState( ["Pending", "Approved", "My Requests", "All"] );
     const [currentFilter, setCurrentFilter] = useState("");
 
-    const [isAuthenticated, setisAuthenticated] = useState(false);
-    const [isAdmin, setisAdmin] = useState(false);
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -26,8 +24,6 @@ const ActivityList = () => {
                 const userDataresponse = await axios.get(`${url}/users/`, {headers: { Authorization: token },})
                 const userData = await userDataresponse.data.user;
                 if(userData) {
-                    setisAuthenticated(true);
-                    setisAdmin(userData.isAdmin); 
                     setName(userData.username);
                     if(userData.isAdmin) {
                         setCurrentFilter("Pending")
@@ -67,18 +63,18 @@ const ActivityList = () => {
                 loading ? 
                 <>
                     {
-                        currentFilter == "My Requests" ?
-                        activityList.filter(activity => (activity.applicant == name)).map(function(object, index) {
+                        currentFilter === "My Requests" ?
+                        activityList.filter(activity => (activity.applicant === name)).map(function(object, index) {
                             return <Activity {...object} key={index} />
                         })
                         :
-                        currentFilter == "All" ?
+                        currentFilter === "All" ?
                             activityList.map(function(object, index){
-                                if(object.status != "Declined")
+                                if(object.status !== "Declined")
                                     return <Activity {...object} key={index}/>
                             })
                             :
-                            activityList.filter(activity => (activity.status == currentFilter)).map(function(object, index) {
+                            activityList.filter(activity => (activity.status === currentFilter)).map(function(object, index) {
                                 return <Activity {...object} key={index} />
                             })
                     }

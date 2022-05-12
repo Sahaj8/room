@@ -7,7 +7,6 @@ import AddRoom from "./components/addRoom"
 import LoginUser from "./components/loginUser";
 import ActivityList from "./components/activityList";
 import AddActivity from "./components/addActivity";
-import { NavBar } from "./components/navBar";
 import UserList from "./components/userList";
 import EditUser from "./components/editUser";
 import RoomList from "./components/roomList";

@@ -72,7 +72,7 @@ const LoginUser = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="form-group row">
                         <label htmlFor="inputUserName" className="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-5">
+                        <div className="col-sm-5">
                         <input 
                             type='text' className="form-control" id="inputUserName" placeholder="Username"
                             onChange={(e) => setName(e.target.value)}
@@ -81,7 +81,7 @@ const LoginUser = () => {
                     </div>
                     <div className="form-group row" style={{paddingTop: "10px"}}>
                         <label htmlFor="inputUserName" className="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-5">
+                        <div className="col-sm-5">
                         <input 
                             type='email' className="form-control" id="inputEmail" placeholder="Email"
                             onChange={(e) => setMail(e.target.value)}
@@ -90,7 +90,7 @@ const LoginUser = () => {
                     </div>
                     <div className="form-group row" style={{paddingTop: "10px"}}>
                         <label htmlFor="inputUserName" className="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-5">
+                        <div className="col-sm-5">
                         <input 
                             type='password' className="form-control" id="inputPassword" placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
