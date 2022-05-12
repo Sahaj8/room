@@ -1,3 +1,3 @@
 export function getApiUrl() {
-    return "https://roomallocbackend.ddns.net";
-  }
+	return "https://roomallocbackend.ddns.net";
+}
